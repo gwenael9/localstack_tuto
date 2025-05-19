@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur de Multiplication</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            display: none;
+        }
+        .success {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+        .error {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculateur de Multiplication</h1>
+        <form id="multiplyForm">
+            <div class="form-group">
+                <label for="number1">Premier nombre :</label>
+                <input type="number" id="number1" name="number1" required>
+            </div>
+            <div class="form-group">
+                <label for="number2">Deuxième nombre :</label>
+                <input type="number" id="number2" name="number2" required>
+            </div>
+            <button type="submit">Calculer</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('multiplyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const number1 = document.getElementById('number1').value;
+            const number2 = document.getElementById('number2').value;
+            const resultDiv = document.getElementById('result');
+
+            try {
+                const response = await fetch('http://localhost:4566/restapis/myid123/prod/_user_request_/multiply', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        num1: number1,
+                        num2: number2
+                    })
+                });
+
+                const data = await response.text();
+                resultDiv.style.display = 'block';
+                resultDiv.className = 'success';
+                resultDiv.textContent = data;
+            } catch (error) {
+                resultDiv.style.display = 'block';
+                resultDiv.className = 'error';
+                resultDiv.textContent = 'Une erreur est survenue lors du calcul.';
+            }
+        });
+    </script>
+</body>
+</html>

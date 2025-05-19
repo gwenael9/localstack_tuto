@@ -1,3 +1,4 @@
+#!/bin/bash
 ID=myid123
 
 # Création de la fonction Lambda
