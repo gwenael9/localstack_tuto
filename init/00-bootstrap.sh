@@ -58,3 +58,16 @@ echo "API_ID: $API_ID"
 echo "PARENT_ID: $PARENT_ID"
 echo "RESOURCE_ID: $RESOURCE_ID" 
 echo "API_URL: 'http://localhost:4566/restapis/$API_ID/prod/_user_request_/multiply'"
+
+echo "Configuration S3..."
+NAME_S3=multiply-bucket
+
+awslocal s3api create-bucket --bucket $NAME_S3
+
+# Configuration du site web statique
+awslocal s3api put-bucket-website \
+    --bucket $NAME_S3 \
+    --website-configuration '{"IndexDocument":{"Suffix":"index.html"}}'
+
+awslocal s3api put-object --bucket $NAME_S3 --key index.html --body ./frontend/index.html --content-type text/html
+echo "http://localhost:4566/$NAME_S3/index.html"

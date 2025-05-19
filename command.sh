@@ -29,3 +29,17 @@ awslocal apigateway put-integration   --rest-api-id kim5kaz3c9   --resource-id k
 
 # créer un déploiement
 awslocal apigateway create-deployment   --rest-api-id kim5kaz3c9   --stage-name prod
+
+# ----------------
+
+# créer un S3
+awslocal s3api create-bucket --bucket multiply-bucket
+
+# Liste bucket
+awslocal s3api list-buckets
+
+# upload a file named index.html to your S3 bucket
+awslocal s3api put-object --bucket multiply-bucket --key index.html --body ./frontend/index.html
+
+# voir les objets dans le s3
+awslocal s3api list-objects --bucket multiply-bucket
