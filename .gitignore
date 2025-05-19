@@ -1,0 +1,30 @@
+# LocalStack
+volume/
+.volume/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environnement virtuel Python
+venv/
+env/
+.env
+
+# Fichiers de configuration locaux
+.env.local
+.env.*.local
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Fichiers temporaires
+*.swp
+*.swo
+*~
+*.txt
+*.zip
